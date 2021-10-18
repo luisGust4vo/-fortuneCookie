@@ -5,6 +5,7 @@ import {View,Text,Image,StyleSheet,TouchableOpacity} from 'react-native';
 export default function App(){
   const [img,setImg] = useState(require('./src/biscoito.png'))
   const [text,setText] = useState('')
+  const [boleano,setboeleano]=useState(false);
   let textFrases=[
     'Siga os bons e aprenda com eles.', 
     'O bom-senso vale mais do que muito conhecimento.', 
@@ -14,21 +15,24 @@ export default function App(){
     'Acredite em milagres, mas não dependa deles.',
     'A maior barreira para o sucesso é o medo do fracasso.'
   ]
-
   
-
   function quebrarBiscoit(){
-    
-    let numeroAleatorio = Math.floor(Math.random()* textFrases.length)
-    
-    setImg(require('./src/biscoitoAberto.png'))
-    setText(''+textFrases[numeroAleatorio]+'');
-    
+    if(boleano === true){
+      alert('clique em reiniciar o biscoito!!');
+    } 
+    else if(boleano === false){
+      let numeroAleatorio = Math.floor(Math.random()* textFrases.length)
+      setImg(require('./src/biscoitoAberto.png'))
+      setText(''+textFrases[numeroAleatorio]+'');
+      setboeleano(true); 
+    }
+   
   }
 
   function reiniciarBiscoito(){
     setImg(require('./src/biscoito.png'))
     setText('');
+    setboeleano(false);
   }
 
   return(
@@ -38,12 +42,13 @@ export default function App(){
       style={style.styleCookie} 
       source={img}/>
       <Text style={style.styleText}>{text}</Text>
-      <TouchableOpacity style={style.button} onPress={quebrarBiscoit} >
+      <TouchableOpacity  style={style.button} onPress={quebrarBiscoit} >
         <View style={style.btnArea}>
           <Text style={style.textButton}>Quebrar o Biscoito</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={reiniciarBiscoito} style={[style.button,{marginTop:11,borderColor:'#dd7b22',backgroundColor:'#FFEFD5'}]}>
+      <TouchableOpacity onPress={reiniciarBiscoito} 
+      style={[style.button,{marginTop:11,borderColor:'#dd7b22',backgroundColor:'#FFEFD5'}]}>
         <View style={style.btnArea}>
           <Text style={[style.textButton,{color:'#dd7b22'}]}>Reiniciar o Biscoito</Text>
         </View>
